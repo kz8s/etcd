@@ -2,10 +2,10 @@ IMAGE=etcd
 REGISTRY?="kz8s"
 VERSION?="v2.3.0"
 
-build:
-	docker build --tag ${REGISTRY}/${IMAGE}:${VERSION} .
+build: ; docker build --tag ${REGISTRY}/${IMAGE}:${VERSION} .
 
-test:
-	docker run ${REGISTRY}/${IMAGE}:${VERSION} --version
+clean: ; @docker rmi --force ${REGISTRY}/${IMAGE}:${VERSION}
 
-.PHONY: build
+test: ; docker run ${REGISTRY}/${IMAGE}:${VERSION} --version
+
+.PHONY: build clean test
